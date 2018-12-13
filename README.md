@@ -96,6 +96,12 @@ make go/build
 chamber exec foobar -- tfenv terraform plan
 ```
 
+### Use with Terragrunt
+
+```sh
+tfenv terragrunt plan
+```
+
 ### Print Environment
 
 ```sh

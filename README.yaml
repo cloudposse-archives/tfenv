@@ -1,0 +1,130 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: tfenv
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/tfenv
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/tfenv.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/tfenv"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/tfenv.svg"
+    url: "https://github.com/cloudposse/tfenv/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+# Short description of this project
+description: |-
+  Command line utility to transform environment variables for use with Terraform (e.g. `TF_VAR_lower_case`) 
+
+  __NOTE__: `tfenv` is **not** a terraform version manager. 
+
+  ## Qualifiers
+
+  * Have you ever wished you could easily pass environment variables to terraform *without* adding the `TF_VAR_` prefix?
+  * Do you use [`chamber`](https://github.com/segmentio/chamber) and get annoyed when it transforms environment variables to uppercase?
+  * Would you like to use common environment variables names with terraform? (e.g. `USER` or `AWS_REGION`)
+
+  Yes? Great! Then this utility is for you.
+
+  The `tfenv` utility will perform the following transformations:
+  
+    1. Lowercase all envs (Terraform convention)
+    2. Strip leading or trailing underscores (`_`)
+    3. Replace consequtive underscores with a single underscore (`_`)
+    4. Prepend prefix (`TF_VAR_`)
+
+  __NOTE__: `tfenv` will preserve the existing environment and add the new environment variables with `TF_VAR_`. This is because some terraform providers expect non-TF_VAR prefixed environment variables. Additionally, when using the `local-exec` provisioner, it's convenient to use regular environment variables. See our [`terraform-null-smtp-mail`](https://github.com/cloudposse/terraform-null-smtp-mail) module for an example of using this pattern.
+
+
+# How to use this project
+usage: |-
+
+  __NOTE__: The utility supports a number of configuration settings which can be passed via environment variables.
+
+    * `TFENV_PREFIX` - Prefix to prepend to all environment variables (default is `TF_VAR_`, but you could do something like `TF_VAR_app_`)
+    * `TFENV_WHITELIST` - Regular expression that should match permitted environment variables (by default `.*`)
+    * `TFENV_BLACKLIST` - Regular expression that should exlude unwanted/dangerous environment variables (e.g. AWS credentials)
+
+  The basic usage looks like this. We're going to run some `command` and pass it `arg1` ... `argN`:
+
+  ```sh
+      tfenv command arg1 arg2 arg3 ... argN
+  ```
+
+  So for example, we can pass our current environment to terraform by simply running:
+
+  ```sh
+      tfenv terraform plan
+  ```
+
+related:
+  - name: "Packages"
+    description: "Cloud Posse installer and distribution of native apps"
+    url: "https://github.com/cloudposse/packages"
+  - name: "build-harness"
+    description: "Collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more"
+    url: "https://github.com/cloudposse/build-harness"
+  - name: "geodesic"
+    description: "Geodesic is the fastest way to get up and running with a rock solid, production grade cloud platform built on strictly Open Source tools."
+    url: "https://github.com/cloudposse/geodesic"
+
+examples: |-
+
+  ### Compiling the Binary
+
+  ```sh
+  make go/build
+  ```
+
+  ### Use with Chamber
+
+  ```sh
+  chamber exec foobar -- tfenv terraform plan
+  ```
+
+  ### Print Environment
+
+  ```sh
+  tfenv printenv
+  ```
+
+  ### Use with Direnv
+  
+  You can easily integrate `tfenv` with [`direnv`](https://github.com/direnv/direnv) so that your environment is automatically setup for Terraform.
+
+  Add the following to your `.envrc`:
+
+  ```
+  eval $(tfenv sh -c "export -p")
+  ```
+
+  <details>
+    <summary>Example Output</summary>
+    ```
+    direnv: loading .envrc
+    direnv: export +TF_VAR_aws_profile +TF_VAR_aws_vault_backend +TF_VAR_colorterm +TF_VAR_dbus_session_bus_address +TF_VAR_desktop_session +TF_VAR_direnv_diff +TF_VAR_direnv_in_envrc +TF_VAR_direnv_watches +TF_VAR_display +TF_VAR_fzf_orig_completion_git +TF_VAR_github_token +TF_VAR_gtk_overlay_scrolling +TF_VAR_histcontrol +TF_VAR_histsize +TF_VAR_home +TF_VAR_hostname +TF_VAR_lang +TF_VAR_lessopen +TF_VAR_logname +TF_VAR_ls_colors +TF_VAR_mail +TF_VAR_mate_desktop_session_id +TF_VAR_okta_user +TF_VAR_oldpwd +TF_VAR_path +TF_VAR_pwd +TF_VAR_qt_auto_screen_scale_factor +TF_VAR_qt_scale_factor +TF_VAR_session_manager +TF_VAR_sessiontype +TF_VAR_shell +TF_VAR_shlvl +TF_VAR_ssh_auth_sock +TF_VAR_term +TF_VAR_user +TF_VAR_vte_version +TF_VAR_windowid +TF_VAR_xauthority +TF_VAR_xdg_current_desktop +TF_VAR_xdg_runtime_dir +TF_VAR_xdg_seat +TF_VAR_xdg_session_id +TF_VAR_xdg_vtnr
+    ```
+  </details>
+
+
+# Contributors to this project
+contributors:
+  - name: "Erik Osterman"
+    homepage: "https://github.com/osterman"
+    github: "osterman"

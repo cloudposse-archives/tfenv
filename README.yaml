@@ -34,7 +34,7 @@ description: |-
 
   __NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv). 
 
-introduction:
+introduction: |-
 
   If you answer "yes" to any of these questions, then look no further!
 

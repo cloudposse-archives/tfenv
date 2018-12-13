@@ -10,25 +10,6 @@ Command line utility to transform environment variables for use with Terraform (
 
 __NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv). 
 
-## Qualifiers
-
-If you answer "yes" to any of these questions, then look no further!
-
-* Have you ever wished you could easily pass environment variables to terraform *without* adding the `TF_VAR_` prefix?
-* Do you use [`chamber`](https://github.com/segmentio/chamber) and get annoyed when it transforms environment variables to uppercase?
-* Would you like to use common environment variables names with terraform? (e.g. `USER` or `AWS_REGION`)
-
-Yes? Great! Then this utility is for you.
-
-The `tfenv` utility will perform the following transformations:
-
-  1. Lowercase all envs (Terraform convention)
-  2. Strip leading or trailing underscores (`_`)
-  3. Replace consequtive underscores with a single underscore (`_`)
-  4. Prepend prefix (`TF_VAR_`)
-
-__NOTE__: `tfenv` will preserve the existing environment and add the new environment variables with `TF_VAR_`. This is because some terraform providers expect non-TF_VAR prefixed environment variables. Additionally, when using the `local-exec` provisioner, it's convenient to use regular environment variables. See our [`terraform-null-smtp-mail`](https://github.com/cloudposse/terraform-null-smtp-mail) module for an example of using this pattern.
-
 
 ---
 
@@ -56,6 +37,25 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 
+## Introduction
+
+
+If you answer "yes" to any of these questions, then look no further!
+
+* Have you ever wished you could easily pass environment variables to terraform *without* adding the `TF_VAR_` prefix?
+* Do you use [`chamber`](https://github.com/segmentio/chamber) and get annoyed when it transforms environment variables to uppercase?
+* Would you like to use common environment variables names with terraform? (e.g. `USER` or `AWS_REGION`)
+
+**Yes?** Great! Then this utility is for you.
+
+The `tfenv` utility will perform the following transformations:
+
+  1. Lowercase all envs (Terraform convention)
+  2. Strip leading or trailing underscores (`_`)
+  3. Replace consequtive underscores with a single underscore (`_`)
+  4. Prepend prefix (`TF_VAR_`)
+
+__NOTE__: `tfenv` will preserve the existing environment and add the new environment variables with `TF_VAR_`. This is because some terraform providers expect non-`TF_VAR_*` prefixed environment variables. Additionally, when using the `local-exec` provisioner, it's convenient to use regular environment variables. See our [`terraform-null-smtp-mail`](https://github.com/cloudposse/terraform-null-smtp-mail) module for an example of using this pattern.
 
 ## Usage
 
@@ -114,10 +114,12 @@ eval $(tfenv sh -c "export -p")
 
 <details>
   <summary>Example Output</summary>
+
   ```
   direnv: loading .envrc
   direnv: export +TF_VAR_aws_profile +TF_VAR_aws_vault_backend +TF_VAR_colorterm +TF_VAR_dbus_session_bus_address +TF_VAR_desktop_session +TF_VAR_direnv_diff +TF_VAR_direnv_in_envrc +TF_VAR_direnv_watches +TF_VAR_display +TF_VAR_fzf_orig_completion_git +TF_VAR_github_token +TF_VAR_gtk_overlay_scrolling +TF_VAR_histcontrol +TF_VAR_histsize +TF_VAR_home +TF_VAR_hostname +TF_VAR_lang +TF_VAR_lessopen +TF_VAR_logname +TF_VAR_ls_colors +TF_VAR_mail +TF_VAR_mate_desktop_session_id +TF_VAR_okta_user +TF_VAR_oldpwd +TF_VAR_path +TF_VAR_pwd +TF_VAR_qt_auto_screen_scale_factor +TF_VAR_qt_scale_factor +TF_VAR_session_manager +TF_VAR_sessiontype +TF_VAR_shell +TF_VAR_shlvl +TF_VAR_ssh_auth_sock +TF_VAR_term +TF_VAR_user +TF_VAR_vte_version +TF_VAR_windowid +TF_VAR_xauthority +TF_VAR_xdg_current_desktop +TF_VAR_xdg_runtime_dir +TF_VAR_xdg_seat +TF_VAR_xdg_session_id +TF_VAR_xdg_vtnr
   ```
+
 </details>
 
 

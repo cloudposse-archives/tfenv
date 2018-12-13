@@ -68,7 +68,7 @@ func main() {
 			// downcase key
 			pair[0] = strings.ToLower(pair[0])
 
-			// trim leading and trailing underscopres
+			// trim leading and trailing underscores
 			pair[0] = reTrim.ReplaceAllString(pair[0], "")
 
 			// remove consecutive underscores
@@ -83,6 +83,7 @@ func main() {
 			}
 		}
 	}
+
 	sort.Strings(env)
 
 	if len(os.Args) < 2 {

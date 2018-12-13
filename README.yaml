@@ -59,9 +59,9 @@ usage: |-
 
   __NOTE__: The utility supports a number of configuration settings which can be passed via environment variables.
 
-    * `TFENV_PREFIX` - Prefix to prepend to all environment variables (default is `TF_VAR_`, but you could do something like `TF_VAR_app_`)
-    * `TFENV_WHITELIST` - Regular expression that should match permitted environment variables (by default `.*`)
-    * `TFENV_BLACKLIST` - Regular expression that should exlude unwanted/dangerous environment variables (e.g. AWS credentials)
+    * `TFENV_PREFIX` - Prefix used for all normalized environment variables (default is `TF_VAR_`, but you could do something like `TF_VAR_app_`)
+    * `TFENV_WHITELIST` - Whitelist of allowed environment variables. Processed *after* blacklist. Regular expression should match wanted environment variables (by default `.*`)
+    * `TFENV_BLACKLIST` - Blacklist of excluded environment variables. Processed *before* whitelist. Regular expression should exlude unwanted/dangerous environment variables (e.g. AWS credentials)
 
   The basic usage looks like this. We're going to run some `command` and pass it `arg1` ... `argN`:
 

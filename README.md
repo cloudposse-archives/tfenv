@@ -6,9 +6,9 @@
 # tfenv [![Build Status](https://travis-ci.org/cloudposse/tfenv.svg?branch=master)](https://travis-ci.org/cloudposse/tfenv) [![Latest Release](https://img.shields.io/github/release/cloudposse/tfenv.svg)](https://github.com/cloudposse/tfenv/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
-Command line utility to transform environment variables for use with Terraform (e.g. `HOSTNAME` → `TF_VAR_hostname`) 
+Command line utility to transform environment variables for use with Terraform (e.g. `HOSTNAME` → `TF_VAR_hostname`)
 
-__NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv). 
+__NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv).
 
 
 ---
@@ -64,7 +64,7 @@ __NOTE__: The utility supports a number of configuration settings which can be p
 
   * `TFENV_PREFIX` - Prefix used for all normalized environment variables (default is `TF_VAR_`, but you could do something like `TF_VAR_app_`)
   * `TFENV_WHITELIST` - Whitelist of allowed environment variables. Processed *after* blacklist. Regular expression should match wanted environment variables (by default `.*`)
-  * `TFENV_BLACKLIST` - Blacklist of excluded environment variables. Processed *before* whitelist. Regular expression should exlude unwanted/dangerous environment variables (e.g. AWS credentials)
+  * `TFENV_BLACKLIST` - Blacklist of excluded environment variables. Processed *before* whitelist. Regular expression should exclude unwanted/dangerous environment variables (e.g. AWS credentials)
 
 The basic usage looks like this. We're going to run some `command` and pass it `arg1` ... `argN`:
 

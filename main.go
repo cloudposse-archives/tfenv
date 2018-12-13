@@ -71,7 +71,7 @@ func main() {
 			// trim leading and trailing underscopres
 			pair[0] = reTrim.ReplaceAllString(pair[0], "")
 
-			// remove consequtive underscopres
+			// remove consecutive underscores
 			pair[0] = reDedupe.ReplaceAllString(pair[0], "_")
 
 			// prepend TF_VAR_, if not there already
@@ -98,7 +98,7 @@ func main() {
 	// Lookup path for executable
 	binary, binaryPathErr := exec.LookPath(exe)
 	if binaryPathErr != nil {
-		log.Fatalf("error: find to find executable `%v`: %v", exe, binaryPathErr)
+		log.Fatalf("error: failed to find executable `%v`: %v", exe, binaryPathErr)
 	}
 
 	execErr := syscall.Exec(binary, args, env)

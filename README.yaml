@@ -121,7 +121,7 @@ usage: |-
 
   ### Initializing Modules
   
-  Terraform as the built-in capability to initialize "root modules" from a remote sources by passing the `-from-module` argument to `terraform init`.
+  Terraform has the built-in capability to initialize "root modules" from a remote sources by passing the `-from-module` argument to `terraform init`.
 
   We can turn this into a 12-factor style invocation using `tfenv`.
 

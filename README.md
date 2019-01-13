@@ -45,6 +45,7 @@ If you answer "yes" to any of these questions, then look no further!
 * Have you ever wished you could easily pass environment variables to terraform *without* adding the `TF_VAR_` prefix?
 * Do you use [`chamber`](https://github.com/segmentio/chamber) and get annoyed when it transforms environment variables to uppercase?
 * Would you like to use common environment variables names with terraform? (e.g. `USER` or `AWS_REGION`)
+* Is there some argument to `terraform init` you want to specify with an environment variable? (e.g. a `-backend-config` property)
 
 **Yes?** Great! Then this utility is for you.
 
@@ -56,6 +57,29 @@ The `tfenv` utility will perform the following transformations:
   4. Prepend prefix (`TF_VAR_`)
 
 __NOTE__: `tfenv` will preserve the existing environment and add the new environment variables with `TF_VAR_`. This is because some terraform providers expect non-`TF_VAR_*` prefixed environment variables. Additionally, when using the `local-exec` provisioner, it's convenient to use regular environment variables. See our [`terraform-null-smtp-mail`](https://github.com/cloudposse/terraform-null-smtp-mail) module for an example of using this pattern.
+
+
+**But wait, there's more!**
+
+With `tfenv` we can surgically assign a value to any terraform argument using per-argument environment variables.
+
+For example, if you want to pass `-backend-config=bucket=terraform-state-bucket` to `terraform init`, then you would do the following:
+
+```
+export TF_CLI_INIT_BACKEND_CONFIG_BUCKET=terraform-state-bucket
+```
+
+Running `tfenv` will populate the `TF_CLI_ARGS_init=-backend-config=bucket=terraform-state-bucket`
+
+Multiple arguments can be specified.
+
+```
+export TF_CLI_INIT_FROM_MODULE=git::git@github.com:ImpactHealthio/terraform-root-modules.git//aws/$(SERVICE)?ref=tags/0.5.7
+source <(tfenv)
+terraform init
+```
+
+Learn more about `TF_CLI_ARGS` and `TF_CLI_ARGS_*` in the [official documentation](https://www.terraform.io/docs/configuration/environment-variables.html#tf_cli_args-and-tf_cli_args_name).
 
 ## Usage
 
@@ -207,7 +231,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyright
 
-Copyright © 2017-2018 [Cloud Posse, LLC](https://cpco.io/copyright)
+Copyright © 2017-2019 [Cloud Posse, LLC](https://cpco.io/copyright)
 
 
 

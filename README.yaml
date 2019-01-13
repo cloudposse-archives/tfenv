@@ -59,24 +59,6 @@ introduction: |-
 
   With `tfenv` we can surgically assign a value to any terraform argument using per-argument environment variables.
 
-  For example, if you want to pass `-backend-config=bucket=terraform-state-bucket` to `terraform init`, then you would do the following:
-
-  ```
-  export TF_CLI_INIT_BACKEND_CONFIG_BUCKET=terraform-state-bucket
-  ```
-
-  Running `tfenv` will populate the `TF_CLI_ARGS_init=-backend-config=bucket=terraform-state-bucket`
-
-  Multiple arguments can be specified.
-
-  ```
-  export TF_CLI_INIT_FROM_MODULE=git::git@github.com:ImpactHealthio/terraform-root-modules.git//aws/$(SERVICE)?ref=tags/0.5.7
-  source <(tfenv)
-  terraform init
-  ```
-
-  Learn more about `TF_CLI_ARGS` and `TF_CLI_ARGS_*` in the [official documentation](https://www.terraform.io/docs/configuration/environment-variables.html#tf_cli_args-and-tf_cli_args_name).
-
 
 # How to use this project
 usage: |-
@@ -96,8 +78,58 @@ usage: |-
   So for example, we can pass our current environment to terraform by simply running:
 
   ```sh
-      tfenv terraform plan
+  tfenv terraform plan
   ```
+
+  ### Direnv
+  
+  You can use `tfenv` with direnv very easily. Running `tfenv` without any arguments will emit `export` statements.
+
+  Example `.envrc`:
+
+  ```sh
+  # Export terraform environment
+  tfenv
+  ```
+
+  ### Bash
+  
+  Load the terraform environment into your shell.
+
+  Just add the following into your shell script:
+
+  ```sh
+  source <(tfenv)
+  ```
+
+  ### Terraform Args
+  
+  With `tfenv` we can populate the [`TF_CLI_ARGS` and `TF_CLI_ARGS_*` environment variables](https://www.terraform.io/docs/configuration/environment-variables.html#tf_cli_args-and-tf_cli_args_name) automatically. This makes it easy to toggle settings. 
+
+  For example, if you want to pass `-backend-config=bucket=terraform-state-bucket` to `terraform init`, then you would do the following:
+
+  ```sh
+  export TF_CLI_INIT_BACKEND_CONFIG_BUCKET=terraform-state-bucket
+  ```
+
+  Running `tfenv` will populate the `TF_CLI_ARGS_init=-backend-config=bucket=terraform-state-bucket`
+
+  Multiple arguments can be specified and they will be properly concatenated.
+
+  ### Initializing Modules
+  
+  Terraform as the built-in capability to initialize "root modules" from a remote sources by passing the `-from-module` argument to `terraform init`.
+
+  We can turn this into a 12-factor style invocation using `tfenv`.
+
+  ```sh
+  export TF_CLI_INIT_FROM_MODULE=git::git@github.com:ImpactHealthio/terraform-root-modules.git//aws/$(SERVICE)?ref=tags/0.5.7
+  source <(tfenv)
+  terraform init
+  ```
+
+  Learn more about `TF_CLI_ARGS` and `TF_CLI_ARGS_*` in the [official documentation](https://www.terraform.io/docs/configuration/environment-variables.html#tf_cli_args-and-tf_cli_args_name).
+
 
 related:
   - name: "Packages"

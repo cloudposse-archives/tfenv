@@ -30,9 +30,12 @@ badges:
 
 # Short description of this project
 description: |-
-  Command line utility to transform environment variables for use with Terraform (e.g. `HOSTNAME` → `TF_VAR_hostname`)
+  Command line utility to transform environment variables for use with Terraform.
+  (e.g. `HOSTNAME` → `TF_VAR_hostname`)
+ 
+  It can also intelligently map environment variables to terraform command line arguments (e.g. `TF_CLI_INIT_BACKEND_CONFIG_BUCKET=example` → `TF_CLI_ARGS_init=-backend-config=bucket=example`).
 
-  __NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv).
+  __NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv). It strictly manages environment variables.
 
 introduction: |-
 

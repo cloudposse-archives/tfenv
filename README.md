@@ -6,9 +6,12 @@
 # tfenv [![Build Status](https://travis-ci.org/cloudposse/tfenv.svg?branch=master)](https://travis-ci.org/cloudposse/tfenv) [![Latest Release](https://img.shields.io/github/release/cloudposse/tfenv.svg)](https://github.com/cloudposse/tfenv/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
-Command line utility to transform environment variables for use with Terraform (e.g. `HOSTNAME` → `TF_VAR_hostname`)
+Command line utility to transform environment variables for use with Terraform.
+(e.g. `HOSTNAME` → `TF_VAR_hostname`)
 
-__NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv).
+It can also intelligently map environment variables to terraform command line arguments (e.g. `TF_CLI_INIT_BACKEND_CONFIG_BUCKET=example` → `TF_CLI_ARGS_init=-backend-config=bucket=example`).
+
+__NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv). It strictly manages environment variables.
 
 
 ---

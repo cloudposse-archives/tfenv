@@ -1,7 +1,8 @@
 package main
 
 import (
-	//	"fmt"
+	"fmt"
+	"github.com/taskcluster/shell"
 	"log"
 	"os"
 	"os/exec"
@@ -51,9 +52,6 @@ func main() {
 	var tfCliArgsDestroy []string
 	var tfCliArgs []string
 
-	// The command that was executed
-	cmd := os.Args[0]
-
 	reTfCliInitBackend := regexp.MustCompile("^TF_CLI_INIT_BACKEND_CONFIG_(.*)")
 	reTfCliCommand := regexp.MustCompile("^TF_CLI_(INIT|PLAN|APPLY|DESTROY)_(.*)")
 	reTfCliDefault := regexp.MustCompile("^TF_CLI_DEFAULT_(.*)")
@@ -69,7 +67,9 @@ func main() {
 		env = append(env, e)
 
 		// Begin normalization of environment variable
-		pair := strings.Split(e, "=")
+		pair := strings.SplitN(e, "=", 2)
+
+		originalEnvName := pair[0]
 
 		// `TF_CLI_ARGS_init`: Map `TF_CLI_INIT_BACKEND_CONFIG_FOO=value` to `-backend-config=foo=value`
 		if reTfCliInitBackend.MatchString(pair[0]) {
@@ -119,11 +119,13 @@ func main() {
 			pair[0] = reDedupe.ReplaceAllString(pair[0], "_")
 
 			// prepend TF_VAR_, if not there already
-			if len(pair[0]) != 0 {
+			if len(pair[0]) > 0 {
 				pair[0] = tfenvPrefix + pair[0]
-				envvar := pair[0] + "=" + pair[1]
-				//fmt.Println(envvar)
-				env = append(env, envvar)
+				if strings.Compare(pair[0], originalEnvName) != 0 {
+					envvar := pair[0] + "=" + pair[1]
+					//fmt.Println(envvar)
+					env = append(env, envvar)
+				}
 			}
 		}
 	}
@@ -150,24 +152,31 @@ func main() {
 
 	sort.Strings(env)
 
+	// The command that was executed
+	cmd := os.Args[0]
+
 	if len(os.Args) < 2 {
-		log.Fatalf("error: %v command args...", cmd)
-	}
+		for _, envvar := range env {
+			// Begin normalization of environment variable
+			pair := strings.SplitN(envvar, "=", 2)
+			fmt.Printf("export %v=%v\n", pair[0], shell.Escape(pair[1]))
+		}
+	} else {
+		// The command that will be executed
+		exe := os.Args[1]
 
-	// The command that will be executed
-	exe := os.Args[1]
+		// The command + any arguments
+		args = append(args, os.Args[1:]...)
 
-	// The command + any arguments
-	args = append(args, os.Args[1:]...)
+		// Lookup path for executable
+		binary, binaryPathErr := exec.LookPath(exe)
+		if binaryPathErr != nil {
+			log.Fatalf("error: %v failed to find executable `%v`: %v", cmd, exe, binaryPathErr)
+		}
 
-	// Lookup path for executable
-	binary, binaryPathErr := exec.LookPath(exe)
-	if binaryPathErr != nil {
-		log.Fatalf("error: failed to find executable `%v`: %v", exe, binaryPathErr)
-	}
-
-	execErr := syscall.Exec(binary, args, env)
-	if execErr != nil {
-		log.Fatalf("error: exec failed: %v", execErr)
+		execErr := syscall.Exec(binary, args, env)
+		if execErr != nil {
+			log.Fatalf("error: %v exec failed: %v", cmd, execErr)
+		}
 	}
 }

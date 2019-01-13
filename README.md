@@ -78,7 +78,7 @@ __NOTE__: The utility supports a number of configuration settings which can be p
 The basic usage looks like this. We're going to run some `command` and pass it `arg1` ... `argN`:
 
 ```sh
-    tfenv command arg1 arg2 arg3 ... argN
+tfenv command arg1 arg2 arg3 ... argN
 ```
 
 So for example, we can pass our current environment to terraform by simply running:
@@ -89,13 +89,13 @@ tfenv terraform plan
 
 ### Direnv
 
-You can use `tfenv` with direnv very easily. Running `tfenv` without any arguments will emit `export` statements.
+You can use `tfenv` with [`direnv`](https://direnv.net/) very easily. Running `tfenv` without any arguments will emit `export` statements.
 
 Example `.envrc`:
 
 ```sh
 # Export terraform environment
-tfenv
+source <(tfenv)
 ```
 
 ### Bash
@@ -124,12 +124,12 @@ Multiple arguments can be specified and they will be properly concatenated.
 
 ### Initializing Modules
 
-Terraform as the built-in capability to initialize "root modules" from a remote sources by passing the `-from-module` argument to `terraform init`.
+Terraform has the built-in capability to initialize "root modules" from a remote sources by passing the `-from-module` argument to `terraform init`.
 
 We can turn this into a 12-factor style invocation using `tfenv`.
 
 ```sh
-export TF_CLI_INIT_FROM_MODULE=git::git@github.com:ImpactHealthio/terraform-root-modules.git//aws/$(SERVICE)?ref=tags/0.5.7
+export TF_CLI_INIT_FROM_MODULE=git::https://github.com/cloudposse/terraform-root-modules.git//aws/tfstate-backend?ref=tags/x.y.z
 source <(tfenv)
 terraform init
 ```
@@ -172,14 +172,14 @@ You can easily integrate `tfenv` with [`direnv`](https://github.com/direnv/diren
 
 Add the following to your `.envrc`:
 
-```
-eval $(tfenv sh -c "export -p")
+```sh
+source <(tfenv)
 ```
 
 <details>
   <summary>Example Output</summary>
 
-  ```
+  ```sh
   direnv: loading .envrc
   direnv: export +TF_VAR_aws_profile +TF_VAR_aws_vault_backend +TF_VAR_colorterm +TF_VAR_dbus_session_bus_address +TF_VAR_desktop_session +TF_VAR_direnv_diff +TF_VAR_direnv_in_envrc +TF_VAR_direnv_watches +TF_VAR_display +TF_VAR_fzf_orig_completion_git +TF_VAR_github_token +TF_VAR_gtk_overlay_scrolling +TF_VAR_histcontrol +TF_VAR_histsize +TF_VAR_home +TF_VAR_hostname +TF_VAR_lang +TF_VAR_lessopen +TF_VAR_logname +TF_VAR_ls_colors +TF_VAR_mail +TF_VAR_mate_desktop_session_id +TF_VAR_okta_user +TF_VAR_oldpwd +TF_VAR_path +TF_VAR_pwd +TF_VAR_qt_auto_screen_scale_factor +TF_VAR_qt_scale_factor +TF_VAR_session_manager +TF_VAR_sessiontype +TF_VAR_shell +TF_VAR_shlvl +TF_VAR_ssh_auth_sock +TF_VAR_term +TF_VAR_user +TF_VAR_vte_version +TF_VAR_windowid +TF_VAR_xauthority +TF_VAR_xdg_current_desktop +TF_VAR_xdg_runtime_dir +TF_VAR_xdg_seat +TF_VAR_xdg_session_id +TF_VAR_xdg_vtnr
   ```

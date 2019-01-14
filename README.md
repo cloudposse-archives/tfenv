@@ -212,7 +212,7 @@ Check out these related projects.
 - [build-harness](https://github.com/cloudposse/build-harness) - Collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more
 - [geodesic](https://github.com/cloudposse/geodesic) - Geodesic is the fastest way to get up and running with a rock solid, production grade cloud platform built on strictly Open Source tools.
 - [direnv](https://direnv.net/) - Unclutter your .profile with an environment switcher for the shell
-- [env](https://en.wikipedia.org/wiki/Env) - It is used to either print a list of environment variables or run another utility in an altered environment without having to modify the currently existing environment.
+- [env](https://en.wikipedia.org/wiki/Env) - Used to either print a list of environment variables or run another utility in an altered environment without having to modify the currently existing environment.
 
 
 

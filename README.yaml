@@ -154,7 +154,7 @@ related:
     description: "Unclutter your .profile with an environment switcher for the shell"
     url: "https://direnv.net/"
   - name: "env"
-    description: "It is used to either print a list of environment variables or run another utility in an altered environment without having to modify the currently existing environment."
+    description: "Used to either print a list of environment variables or run another utility in an altered environment without having to modify the currently existing environment."
     url: "https://en.wikipedia.org/wiki/Env"
 
 examples: |-

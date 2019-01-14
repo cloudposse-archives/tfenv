@@ -11,7 +11,7 @@ Command line utility to transform environment variables for use with Terraform.
 
 It can also intelligently map environment variables to terraform command line arguments (e.g. `TF_CLI_INIT_BACKEND_CONFIG_BUCKET=example` → `TF_CLI_ARGS_init=-backend-config=bucket=example`).
 
-__NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv). It strictly manages environment variables.
+__NOTE__: `tfenv` is **not** a [terraform version manager](#history). It strictly manages environment variables much like `env` or `direnv`.
 
 
 ---
@@ -211,6 +211,8 @@ Check out these related projects.
 - [Packages](https://github.com/cloudposse/packages) - Cloud Posse installer and distribution of native apps
 - [build-harness](https://github.com/cloudposse/build-harness) - Collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more
 - [geodesic](https://github.com/cloudposse/geodesic) - Geodesic is the fastest way to get up and running with a rock solid, production grade cloud platform built on strictly Open Source tools.
+- [direnv](https://direnv.net/) - Unclutter your .profile with an environment switcher for the shell
+- [env](https://en.wikipedia.org/wiki/Env) - It is used to either print a list of environment variables or run another utility in an altered environment without having to modify the currently existing environment.
 
 
 

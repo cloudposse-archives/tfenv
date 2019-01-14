@@ -35,7 +35,7 @@ description: |-
  
   It can also intelligently map environment variables to terraform command line arguments (e.g. `TF_CLI_INIT_BACKEND_CONFIG_BUCKET=example` → `TF_CLI_ARGS_init=-backend-config=bucket=example`).
 
-  __NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv). It strictly manages environment variables.
+  __NOTE__: `tfenv` is **not** a [terraform version manager](#history). It strictly manages environment variables much like `env` or `direnv`.
 
 introduction: |-
 
@@ -150,6 +150,12 @@ related:
   - name: "geodesic"
     description: "Geodesic is the fastest way to get up and running with a rock solid, production grade cloud platform built on strictly Open Source tools."
     url: "https://github.com/cloudposse/geodesic"
+  - name: "direnv"
+    description: "Unclutter your .profile with an environment switcher for the shell"
+    url: "https://direnv.net/"
+  - name: "env"
+    description: "It is used to either print a list of environment variables or run another utility in an altered environment without having to modify the currently existing environment."
+    url: "https://en.wikipedia.org/wiki/Env"
 
 examples: |-
 

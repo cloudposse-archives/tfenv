@@ -140,6 +140,11 @@ usage: |-
   Learn more about `TF_CLI_ARGS` and `TF_CLI_ARGS_*` in the [official documentation](https://www.terraform.io/docs/configuration/environment-variables.html#tf_cli_args-and-tf_cli_args_name).
 
 
+references:
+  - name: "Terraform Without Wrappers is AWESOME!"
+    description: "Reddit discussion regarding this project."
+    url: "https://www.reddit.com/r/Terraform/comments/afznb2/terraform_without_wrappers_is_awesome/"
+
 related:
   - name: "Packages"
     description: "Cloud Posse installer and distribution of native apps"

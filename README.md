@@ -216,6 +216,14 @@ Check out these related projects.
 
 
 
+
+## References
+
+For additional context, refer to some of these links. 
+
+- [Terraform Without Wrappers is AWESOME!](https://www.reddit.com/r/Terraform/comments/afznb2/terraform_without_wrappers_is_awesome/) - Reddit discussion regarding this project.
+
+
 ## Help
 
 **Got a question?**

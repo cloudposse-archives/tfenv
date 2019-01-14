@@ -58,7 +58,6 @@ func main() {
 
 	reTfVar := regexp.MustCompile("^" + tfenvPrefix)
 	reTrim := regexp.MustCompile("(^_+|_+$)")
-	reDashes := regexp.MustCompile("-+")
 	reUnderscores := regexp.MustCompile("_+")
 	reWhitelist := regexp.MustCompile(tfenvWhitelist)
 	reBlacklist := regexp.MustCompile(tfenvBlacklist)
@@ -76,14 +75,8 @@ func main() {
 		if reTfCliInitBackend.MatchString(pair[0]) {
 			match := reTfCliInitBackend.FindStringSubmatch(pair[0])
 
-			// Replace all underscores with dashes
-			arg := reUnderscores.ReplaceAllString(match[1], "-")
-
 			// Lowercase parameters for terraform
-			arg = strings.ToLower(arg)
-
-			// Convert things like `role-arn` to `role_arn`
-			arg = reDashes.ReplaceAllString(arg, "_")
+			arg := strings.ToLower(match[1])
 
 			// Combine parameters into something like `-backend-config=role_arn=xxx`
 			arg = "-backend-config=" + arg + "=" + pair[1]

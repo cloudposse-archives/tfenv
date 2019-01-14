@@ -58,7 +58,7 @@ func main() {
 
 	reTfVar := regexp.MustCompile("^" + tfenvPrefix)
 	reTrim := regexp.MustCompile("(^_+|_+$)")
-	reDedupe := regexp.MustCompile("_+")
+	reUnderscores := regexp.MustCompile("_+")
 	reWhitelist := regexp.MustCompile(tfenvWhitelist)
 	reBlacklist := regexp.MustCompile(tfenvBlacklist)
 
@@ -74,17 +74,20 @@ func main() {
 		// `TF_CLI_ARGS_init`: Map `TF_CLI_INIT_BACKEND_CONFIG_FOO=value` to `-backend-config=foo=value`
 		if reTfCliInitBackend.MatchString(pair[0]) {
 			match := reTfCliInitBackend.FindStringSubmatch(pair[0])
-			arg := reDedupe.ReplaceAllString(match[1], "-")
-			arg = strings.ToLower(arg)
+
+			// Lowercase parameters for terraform
+			arg := strings.ToLower(match[1])
+
+			// Combine parameters into something like `-backend-config=role_arn=xxx`
 			arg = "-backend-config=" + arg + "=" + pair[1]
 			tfCliArgsInit = append(tfCliArgsInit, arg)
 		} else if reTfCliCommand.MatchString(pair[0]) {
 			// `TF_CLI_ARGS_plan`: Map `TF_CLI_PLAN_SOMETHING=value` to `-something=value`
 			match := reTfCliCommand.FindStringSubmatch(pair[0])
-			cmd := reDedupe.ReplaceAllString(match[1], "-")
+			cmd := reUnderscores.ReplaceAllString(match[1], "-")
 			cmd = strings.ToLower(cmd)
 
-			param := reDedupe.ReplaceAllString(match[2], "-")
+			param := reUnderscores.ReplaceAllString(match[2], "-")
 			param = strings.ToLower(param)
 			arg := "-" + param + "=" + pair[1]
 			switch cmd {
@@ -100,7 +103,7 @@ func main() {
 		} else if reTfCliDefault.MatchString(pair[0]) {
 			// `TF_CLI_ARGS`: Map `TF_CLI_DEFAULT_SOMETHING=value` to `-something=value`
 			match := reTfCliDefault.FindStringSubmatch(pair[0])
-			param := reDedupe.ReplaceAllString(match[1], "-")
+			param := reUnderscores.ReplaceAllString(match[1], "-")
 			param = strings.ToLower(param)
 			arg := "-" + param + "=" + pair[1]
 			tfCliArgs = append(tfCliArgs, arg)
@@ -116,7 +119,7 @@ func main() {
 			pair[0] = reTrim.ReplaceAllString(pair[0], "")
 
 			// remove consecutive underscores
-			pair[0] = reDedupe.ReplaceAllString(pair[0], "_")
+			pair[0] = reUnderscores.ReplaceAllString(pair[0], "_")
 
 			// prepend TF_VAR_, if not there already
 			if len(pair[0]) > 0 {

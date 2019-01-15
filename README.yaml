@@ -35,7 +35,7 @@ description: |-
  
   It can also intelligently map environment variables to terraform command line arguments (e.g. `TF_CLI_INIT_BACKEND_CONFIG_BUCKET=example` → `TF_CLI_ARGS_init=-backend-config=bucket=example`).
 
-  __NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv). It strictly manages environment variables.
+  __NOTE__: `tfenv` is **not** a [terraform version manager](#history). It strictly manages environment variables much like `env` or `direnv`.
 
 introduction: |-
 
@@ -62,6 +62,14 @@ introduction: |-
 
   With `tfenv` we can surgically assign a value to any terraform argument using per-argument environment variables.
 
+  ## History
+  
+
+  **Why is this project called `tfenv`?**
+
+  This `tfenv` project borrows it's naming convention from popular tools like [`env`](https://en.wikipedia.org/wiki/Env), [`direnv`](http://direnv.net), and [`autoenv`](https://github.com/kennethreitz/autoenv). These tools provide various ways to export variables in the environment. 
+  
+  The `env` command has been [around since the early 90s](http://pdplab.it.uom.gr/project/sysadm/unix.pdf), while [environment variables](https://en.wikipedia.org/wiki/Environment_variable) were first conceived of in 1979. On the other hand there are tools like `rbenv` Et al., which are ["version managers"](https://en.wikipedia.org/wiki/Ruby_Version_Manager) that were conceived of sometime around 2010.
 
 # How to use this project
 usage: |-
@@ -134,6 +142,11 @@ usage: |-
   Learn more about `TF_CLI_ARGS` and `TF_CLI_ARGS_*` in the [official documentation](https://www.terraform.io/docs/configuration/environment-variables.html#tf_cli_args-and-tf_cli_args_name).
 
 
+references:
+  - name: "Terraform Without Wrappers is AWESOME!"
+    description: "Reddit discussion regarding this project."
+    url: "https://www.reddit.com/r/Terraform/comments/afznb2/terraform_without_wrappers_is_awesome/"
+
 related:
   - name: "Packages"
     description: "Cloud Posse installer and distribution of native apps"
@@ -144,6 +157,12 @@ related:
   - name: "geodesic"
     description: "Geodesic is the fastest way to get up and running with a rock solid, production grade cloud platform built on strictly Open Source tools."
     url: "https://github.com/cloudposse/geodesic"
+  - name: "direnv"
+    description: "Unclutter your .profile with an environment switcher for the shell"
+    url: "https://direnv.net/"
+  - name: "env"
+    description: "Used to either print a list of environment variables or run another utility in an altered environment without having to modify the currently existing environment."
+    url: "https://en.wikipedia.org/wiki/Env"
 
 examples: |-
 

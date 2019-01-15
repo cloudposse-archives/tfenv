@@ -11,7 +11,7 @@ Command line utility to transform environment variables for use with Terraform.
 
 It can also intelligently map environment variables to terraform command line arguments (e.g. `TF_CLI_INIT_BACKEND_CONFIG_BUCKET=example` → `TF_CLI_ARGS_init=-backend-config=bucket=example`).
 
-__NOTE__: `tfenv` is **not** a [terraform version manager](https://github.com/tfutils/tfenv). It strictly manages environment variables.
+__NOTE__: `tfenv` is **not** a [terraform version manager](#history). It strictly manages environment variables much like `env` or `direnv`.
 
 
 ---
@@ -65,6 +65,15 @@ __NOTE__: `tfenv` will preserve the existing environment and add the new environ
 **But wait, there's more!**
 
 With `tfenv` we can surgically assign a value to any terraform argument using per-argument environment variables.
+
+## History
+
+
+**Why is this project called `tfenv`?**
+
+This `tfenv` project borrows it's naming convention from popular tools like [`env`](https://en.wikipedia.org/wiki/Env), [`direnv`](http://direnv.net), and [`autoenv`](https://github.com/kennethreitz/autoenv). These tools provide various ways to export variables in the environment. 
+
+The `env` command has been [around since the early 90s](http://pdplab.it.uom.gr/project/sysadm/unix.pdf), while [environment variables](https://en.wikipedia.org/wiki/Environment_variable) were first conceived of in 1979. On the other hand there are tools like `rbenv` Et al., which are ["version managers"](https://en.wikipedia.org/wiki/Ruby_Version_Manager) that were conceived of sometime around 2010.
 
 ## Usage
 
@@ -204,7 +213,17 @@ Check out these related projects.
 - [Packages](https://github.com/cloudposse/packages) - Cloud Posse installer and distribution of native apps
 - [build-harness](https://github.com/cloudposse/build-harness) - Collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more
 - [geodesic](https://github.com/cloudposse/geodesic) - Geodesic is the fastest way to get up and running with a rock solid, production grade cloud platform built on strictly Open Source tools.
+- [direnv](https://direnv.net/) - Unclutter your .profile with an environment switcher for the shell
+- [env](https://en.wikipedia.org/wiki/Env) - Used to either print a list of environment variables or run another utility in an altered environment without having to modify the currently existing environment.
 
+
+
+
+## References
+
+For additional context, refer to some of these links. 
+
+- [Terraform Without Wrappers is AWESOME!](https://www.reddit.com/r/Terraform/comments/afznb2/terraform_without_wrappers_is_awesome/) - Reddit discussion regarding this project.
 
 
 ## Help

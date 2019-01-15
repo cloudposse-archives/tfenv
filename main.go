@@ -79,7 +79,10 @@ func main() {
 			arg := strings.ToLower(match[1])
 
 			// Combine parameters into something like `-backend-config=role_arn=xxx`
-			arg = "-backend-config=" + arg + "=" + pair[1]
+			arg = "-backend-config=" + arg
+			if len(pair[1]) > 0 && pair[1] != "true" {
+				arg += "=" + pair[1]
+			}
 			tfCliArgsInit = append(tfCliArgsInit, arg)
 		} else if reTfCliCommand.MatchString(pair[0]) {
 			// `TF_CLI_ARGS_plan`: Map `TF_CLI_PLAN_SOMETHING=value` to `-something=value`
@@ -89,7 +92,11 @@ func main() {
 
 			param := reUnderscores.ReplaceAllString(match[2], "-")
 			param = strings.ToLower(param)
-			arg := "-" + param + "=" + pair[1]
+			arg := "-" + param
+			// Append non-empty parameters or non-true values.
+			if len(pair[1]) > 0 && pair[1] != "true" {
+				arg += "=" + pair[1]
+			}
 			switch cmd {
 			case "init":
 				tfCliArgsInit = append(tfCliArgsInit, arg)
@@ -105,7 +112,10 @@ func main() {
 			match := reTfCliDefault.FindStringSubmatch(pair[0])
 			param := reUnderscores.ReplaceAllString(match[1], "-")
 			param = strings.ToLower(param)
-			arg := "-" + param + "=" + pair[1]
+			arg := "-" + param
+			if len(pair[1]) > 0 && pair[1] != "true" {
+				arg += "=" + pair[1]
+			}
 			tfCliArgs = append(tfCliArgs, arg)
 		} else if !reBlacklist.MatchString(pair[0]) && reWhitelist.MatchString(pair[0]) {
 			// Process the blacklist for exclusions, then the whitelist for inclusions

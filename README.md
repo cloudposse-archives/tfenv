@@ -107,6 +107,12 @@ Example `.envrc`:
 source <(tfenv)
 ```
 
+or...
+```sh
+# Export terraform environment
+eval "$(tfenv)"
+```
+
 ### Bash
 
 Load the terraform environment into your shell.

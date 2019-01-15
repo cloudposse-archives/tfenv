@@ -71,7 +71,7 @@ With `tfenv` we can surgically assign a value to any terraform argument using pe
 
 **Why is this project called `tfenv`?**
 
-This `tfenv` project borrows it's naming convention from popular tools like [`env`](https://en.wikipedia.org/wiki/Env), [`direnv`](http://direnv.net), and [`autoenv`](https://github.com/kennethreitz/autoenv). These tools provide various ways to export variables in the environment. The `env` command has been in [around since the early 90s](http://pdplab.it.uom.gr/project/sysadm/unix.pdf), while [environment variables](https://en.wikipedia.org/wiki/Environment_variable) were first conceived of in 1979. On the other hand there are tools like `rbenv` Et al. which are ["version managers"](https://en.wikipedia.org/wiki/Ruby_Version_Manager) that were conceived of sometime after 2010. 
+This `tfenv` project borrows it's naming convention from popular tools like [`env`](https://en.wikipedia.org/wiki/Env), [`direnv`](http://direnv.net), and [`autoenv`](https://github.com/kennethreitz/autoenv). These tools provide various ways to export variables in the environment. The `env` command has been in [around since the early 90s](http://pdplab.it.uom.gr/project/sysadm/unix.pdf), while [environment variables](https://en.wikipedia.org/wiki/Environment_variable) were first conceived of in 1979. On the other hand there are tools like `rbenv` Et al. are ["version managers"](https://en.wikipedia.org/wiki/Ruby_Version_Manager) that were conceived of sometime around 2010.
 
 ## Usage
 

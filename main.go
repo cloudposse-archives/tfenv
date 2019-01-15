@@ -95,7 +95,7 @@ func main() {
 			arg := "-" + param
 			// Append non-empty parameters or non-true values.
 			if len(pair[1]) > 0 && pair[1] != "true" {
-				arg += param + "=" + pair[1]
+				arg += "=" + pair[1]
 			}
 			switch cmd {
 			case "init":

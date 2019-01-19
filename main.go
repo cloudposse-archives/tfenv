@@ -53,7 +53,8 @@ func main() {
 	var tfCliArgs []string
 
 	reTfCliInitBackend := regexp.MustCompile("^TF_CLI_INIT_BACKEND_CONFIG_(.*)")
-	reTfCliCommand := regexp.MustCompile("^TF_CLI_(INIT|PLAN|APPLY|DESTROY)_(.*)")
+	reTfCliOption := regexp.MustCompile("^TF_CLI_(INIT|PLAN|APPLY|DESTROY)_(.*)")
+	reTfCliPositional := regexp.MustCompile("^TF_CLI_(INIT|PLAN|APPLY|DESTROY)$")
 	reTfCliDefault := regexp.MustCompile("^TF_CLI_DEFAULT_(.*)")
 
 	reTfVar := regexp.MustCompile("^" + tfenvPrefix)
@@ -84,9 +85,9 @@ func main() {
 				arg += "=" + pair[1]
 			}
 			tfCliArgsInit = append(tfCliArgsInit, arg)
-		} else if reTfCliCommand.MatchString(pair[0]) {
+		} else if reTfCliOption.MatchString(pair[0]) {
 			// `TF_CLI_ARGS_plan`: Map `TF_CLI_PLAN_SOMETHING=value` to `-something=value`
-			match := reTfCliCommand.FindStringSubmatch(pair[0])
+			match := reTfCliOption.FindStringSubmatch(pair[0])
 			cmd := reUnderscores.ReplaceAllString(match[1], "-")
 			cmd = strings.ToLower(cmd)
 
@@ -99,13 +100,33 @@ func main() {
 			}
 			switch cmd {
 			case "init":
-				tfCliArgsInit = append(tfCliArgsInit, arg)
+				tfCliArgsInit = append([]string{arg}, tfCliArgsInit...)
 			case "plan":
-				tfCliArgsPlan = append(tfCliArgsPlan, arg)
+				tfCliArgsPlan = append([]string{arg}, tfCliArgsPlan...)
 			case "apply":
-				tfCliArgsApply = append(tfCliArgsApply, arg)
+				tfCliArgsApply = append([]string{arg}, tfCliArgsApply...)
 			case "destroy":
-				tfCliArgsDestroy = append(tfCliArgsDestroy, arg)
+				tfCliArgsDestroy = append([]string{arg}, tfCliArgsDestroy...)
+			}
+		} else if reTfCliPositional.MatchString(pair[0]) {
+			// `TF_CLI_ARGS_plan`: Map `TF_CLI_PLAN=value` to `value` for `plan`
+			match := reTfCliPositional.FindStringSubmatch(pair[0])
+			cmd := reUnderscores.ReplaceAllString(match[1], "-")
+			cmd = strings.ToLower(cmd)
+
+			arg := pair[1]
+			// Append non-empty parameters or non-true values.
+			if len(arg) > 0 {
+				switch cmd {
+				case "init":
+					tfCliArgsInit = append(tfCliArgsInit, arg)
+				case "plan":
+					tfCliArgsPlan = append(tfCliArgsPlan, arg)
+				case "apply":
+					tfCliArgsApply = append(tfCliArgsApply, arg)
+				case "destroy":
+					tfCliArgsDestroy = append(tfCliArgsDestroy, arg)
+				}
 			}
 		} else if reTfCliDefault.MatchString(pair[0]) {
 			// `TF_CLI_ARGS`: Map `TF_CLI_DEFAULT_SOMETHING=value` to `-something=value`

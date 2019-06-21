@@ -15,18 +15,21 @@ function teardown() {
 
 @test "TF_VAR_foobar works" {
   which tfenv
+  tfenv printenv TF_VAR_foobar >&2
   [ "$(tfenv printenv TF_VAR_foobar)" != "" ]
   [ "$(tfenv printenv TF_VAR_foobar)" == "${FOOBAR}" ]
 }
 
 @test "TF_VAR_blah works" {
   which tfenv
+  tfenv printenv TF_VAR_blah >&2
   [ "$(tfenv printenv TF_VAR_blah)" != "" ]
   [ "$(tfenv printenv TF_VAR_blah)" == "${Blah}" ]
 }
 
 @test "TF_VAR_something works" {
   which tfenv
+  tfenv printenv TF_VAR_something >&2
   [ "$(tfenv printenv TF_VAR_something)" != "" ]
   [ "$(tfenv printenv TF_VAR_something)" == "${_something}" ]
 }

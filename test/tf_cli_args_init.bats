@@ -14,6 +14,7 @@ function teardown() {
 
 @test "TF_CLI_ARGS_init works" {
   which tfenv
+  tfenv printenv TF_CLI_ARGS_init >&2
   [ "$(tfenv printenv TF_CLI_ARGS_init)" != "" ]
   [ "$(tfenv printenv TF_CLI_ARGS_init)" == "-backend=${TF_CLI_INIT_BACKEND} -from-module=${TF_CLI_INIT_FROM_MODULE} ${TF_CLI_INIT}" ]
 }

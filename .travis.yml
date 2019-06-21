@@ -9,6 +9,11 @@ addons:
     - make
     - curl
 
+before_install:
+  - sudo add-apt-repository ppa:duggan/bats --yes
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq bats
+
 install:
 - make init
 - make go/deps-build
@@ -19,6 +24,7 @@ script:
 - make go/test
 - make go/lint
 - make go/build-all
+- make test
 - ls -l release/
 
 deploy:

@@ -2,34 +2,33 @@ function setup() {
   export FOOBAR=123
   export Blah=true
   export _something=good
-  export _PATH=$PATH
-  export PATH="../release:${PATH}"
+  export TF_ENV=${TF_ENV:-../release/tfenv}
 }
 
 function teardown() {
   unset FOOBAR
   unset Blah
   unset _something
-  export PATH=$_PATH
+  unset TF_ENV
 }
 
 @test "TF_VAR_foobar works" {
-  which tfenv
-  tfenv printenv TF_VAR_foobar >&2
-  [ "$(tfenv printenv TF_VAR_foobar)" != "" ]
-  [ "$(tfenv printenv TF_VAR_foobar)" == "${FOOBAR}" ]
+  which ${TF_ENV}
+  ${TF_ENV} printenv TF_VAR_foobar >&2
+  [ "$(${TF_ENV} printenv TF_VAR_foobar)" != "" ]
+  [ "$(${TF_ENV} printenv TF_VAR_foobar)" == "${FOOBAR}" ]
 }
 
 @test "TF_VAR_blah works" {
-  which tfenv
-  tfenv printenv TF_VAR_blah >&2
-  [ "$(tfenv printenv TF_VAR_blah)" != "" ]
-  [ "$(tfenv printenv TF_VAR_blah)" == "${Blah}" ]
+  which ${TF_ENV}
+  ${TF_ENV} printenv TF_VAR_blah >&2
+  [ "$(${TF_ENV} printenv TF_VAR_blah)" != "" ]
+  [ "$(${TF_ENV} printenv TF_VAR_blah)" == "${Blah}" ]
 }
 
 @test "TF_VAR_something works" {
-  which tfenv
-  tfenv printenv TF_VAR_something >&2
-  [ "$(tfenv printenv TF_VAR_something)" != "" ]
-  [ "$(tfenv printenv TF_VAR_something)" == "${_something}" ]
+  which ${TF_ENV}
+  ${TF_ENV} printenv TF_VAR_something >&2
+  [ "$(${TF_ENV} printenv TF_VAR_something)" != "" ]
+  [ "$(${TF_ENV} printenv TF_VAR_something)" == "${_something}" ]
 }

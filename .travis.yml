@@ -24,7 +24,7 @@ script:
 - make go/test
 - make go/lint
 - make go/build-all
-- make test
+- make test TF_ENV=../release/tfenv_linux_amd64
 - ls -l release/
 
 deploy:

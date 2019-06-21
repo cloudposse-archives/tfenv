@@ -7,6 +7,7 @@ function setup() {
 
 function teardown() {
   unset TF_CLI_INIT_FROM_MODULE
+  unset TF_CLI_INIT_BACKEND
   unset TF_CLI_INIT
   unset TF_ENV
 }

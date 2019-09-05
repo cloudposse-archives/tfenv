@@ -56,7 +56,7 @@ The `tfenv` utility will perform the following transformations:
 
   1. Lowercase all envs (Terraform convention)
   2. Strip leading or trailing underscores (`_`)
-  3. Replace consequtive underscores with a single underscore (`_`)
+  3. Replace consecutive underscores with a single underscore (`_`)
   4. Prepend prefix (`TF_VAR_`)
 
 __NOTE__: `tfenv` will preserve the existing environment and add the new environment variables with `TF_VAR_`. This is because some terraform providers expect non-`TF_VAR_*` prefixed environment variables. Additionally, when using the `local-exec` provisioner, it's convenient to use regular environment variables. See our [`terraform-null-smtp-mail`](https://github.com/cloudposse/terraform-null-smtp-mail) module for an example of using this pattern.

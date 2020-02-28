@@ -52,7 +52,7 @@ introduction: |-
 
     1. Lowercase all envs (Terraform convention)
     2. Strip leading or trailing underscores (`_`)
-    3. Replace consequtive underscores with a single underscore (`_`)
+    3. Replace consecutive underscores with a single underscore (`_`)
     4. Prepend prefix (`TF_VAR_`)
 
   __NOTE__: `tfenv` will preserve the existing environment and add the new environment variables with `TF_VAR_`. This is because some terraform providers expect non-`TF_VAR_*` prefixed environment variables. Additionally, when using the `local-exec` provisioner, it's convenient to use regular environment variables. See our [`terraform-null-smtp-mail`](https://github.com/cloudposse/terraform-null-smtp-mail) module for an example of using this pattern.
@@ -67,7 +67,7 @@ introduction: |-
 
   **Why is this project called `tfenv`?**
 
-  This `tfenv` project borrows it's naming convention from popular tools like [`env`](https://en.wikipedia.org/wiki/Env), [`direnv`](http://direnv.net), and [`autoenv`](https://github.com/kennethreitz/autoenv). These tools provide various ways to export variables in the environment. 
+  This `tfenv` project borrows its naming convention from popular tools like [`env`](https://en.wikipedia.org/wiki/Env), [`direnv`](http://direnv.net), and [`autoenv`](https://github.com/kennethreitz/autoenv). These tools provide various ways to export variables in the environment. 
   
   The `env` command has been [around since the early 90s](http://pdplab.it.uom.gr/project/sysadm/unix.pdf), while [environment variables](https://en.wikipedia.org/wiki/Environment_variable) were first conceived of in 1979. On the other hand there are tools like `rbenv` Et al., which are ["version managers"](https://en.wikipedia.org/wiki/Ruby_Version_Manager) that were conceived of sometime around 2010.
 
